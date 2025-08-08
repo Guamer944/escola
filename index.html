@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sociedade Maia</title>
+    <style>
+        /* Estilos Padrão */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1f1f1f;
+            font-size: 20px;
+            line-height: 1.6;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            color: white;
+        }
+
+        header {
+            background-color: black;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        header h1 {
+            color: #fff;
+            margin: 0;
+            transition: color 0.5s ease;
+        }
+
+        nav {
+            background: gray;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px;
+        }
+
+        nav button {
+            background-color: #00a98f;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        nav button:hover {
+            background-color: #007a66;
+        }
+
+        section {
+            display: none;
+            padding: 30px;
+            max-width: 900px;
+            margin: 30px auto;
+            background: #464646;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transition: background-color 0.5s ease;
+        }
+        
+        section.active {
+            display: block;
+        }
+
+        ul {
+            padding-left: 30px;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sociedade Maia</h1>
+        <p>Trabalho de História - 6º ano</p>
+    </header>
+
+    
+
+    <section id="introducao" class="active">
+        <h2>Introdução</h2>
+        <p>Os maias foram uma civilização da América Central que viveu há milhares de anos. Eles construíram cidades grandes, pirâmides e eram muito inteligentes. Estudavam as estrelas, inventaram um calendário e até criaram uma escrita própria.</p>
+        <h2>Como era a sociedade maia?</h2>
+        <p>A sociedade maia era dividida em grupos. Cada pessoa tinha uma função importante. No topo estavam os <strong>nobres</strong> e o <strong>rei</strong>, que mandavam. Abaixo dele estavam os <strong>sacerdotes</strong>, que cuidavam da religião. Depois vinham os <strong>guerreiros</strong>, <strong>artesãos</strong>, <strong>camponeses</strong> e <strong>escravos</strong>. Cada grupo ajudava a sociedade a funcionar de forma organizada.</p>
+        <h2>O que as pessoas faziam?</h2>
+        <ul>
+            <li><strong>Rei:</strong> era o chefe da cidade e era tratado como um deus. Ele tomava decisões importantes e liderava a sociedade.</li>
+            <li><strong>Sacerdotes:</strong> cuidavam dos rituais. Eram muito respeitados pela população.</li>
+            <li><strong>Camponeses:</strong> plantavam milho, feijão e cuidavam dos alimentos.</li>
+            <li><strong>Guerreiros:</strong> protegiam a cidade e lutavam em guerras para defender seu povo e conquistar novos territórios.</li>
+            <li><strong>Escravos:</strong> eram prisioneiros ou pessoas pobres que trabalhavam muito. Faziam tarefas pesadas e tinham poucos direitos.</li>
+        </ul>
+        <h2>Curiosidades</h2>
+        <ul>
+            <li>Os maias usavam roupas coloridas e penas de aves para se enfeitar em festas e cerimônias.</li>
+            <li>As crianças aprendiam com os pais desde cedo e muitas vezes seguiam a profissão da família.</li>
+            <li>As cidades tinham pirâmides enormes, parecidas com templos, onde aconteciam cerimônias religiosas.</li>
+            <li>Os maias acreditavam em muitos deuses, cada um ligado à natureza e aos elementos, como o sol, a chuva e o milho.</li>
+            <li>As mulheres também tinham papéis importantes, cuidando da casa, da família e até podendo ser sacerdotisas.</li>
+        </ul>
+    </section>
+
+    <script>
+        
+        function mostrar(id) {
+            const secoes = document.querySelectorAll('section');
+            secoes.forEach(secao => secao.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        
+    </script>
+</body>
+</html>
