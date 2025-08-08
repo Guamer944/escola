@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz sobre os Maias</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #34495e;
+            color: #ecf0f1;
+            font-family: 'Press Start 2P', cursive;
+            margin: 0;
+            text-align: center;
+        }
+
+        .quiz-container {
+            background-color: #2c3e50;
+            border: 4px solid #f1c40f;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #f1c40f;
+            margin-bottom: 20px;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            min-height: 50px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .option-button {
+            background-color: #4a6681;
+            color: #ecf0f1;
+            border: 2px solid #bdc3c7;
+            padding: 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-button:hover {
+            background-color: #5d7a96;
+            transform: translateY(-2px);
+        }
+
+        .option-button.correct {
+            background-color: #2ecc71;
+            border-color: #27ae60;
+        }
+        
+        .option-button.incorrect {
+            background-color: #e74c3c;
+            border-color: #c0392b;
+        }
+        
+        .option-button:disabled {
+            cursor: not-allowed;
+        }
+
+        .controls {
+            margin-top: 30px;
+        }
+
+        .controls button {
+            background-color: #f1c40f;
+            color: #2c3e50;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #d6ac0c;
+            transition: all 0.1s ease;
+        }
+        
+        .controls button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #d6ac0c;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            min-height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>Quiz sobre os Maias</h1>
+        <div id="quiz-content">
+            <p class="question-text" id="question-text"></p>
+            <div class="options-container" id="options-container"></div>
+            <div class="controls">
+                <button id="next-button" style="display: none;">Próxima Pergunta</button>
+                <button id="restart-button" style="display: none;">Reiniciar Quiz</button>
+            </div>
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Qual era a principal divindade na religião maia?",
+                options: ["Quetzalcoatl", "Huitzilopochtli", "Kukulcan", "Tlaloc"],
+                answer: "Kukulcan"
+            },
+            {
+                question: "Onde a civilização maia estava localizada principalmente?",
+                options: ["Andes", "Mesoamérica", "Vale do Nilo", "Mesopotâmia"],
+                answer: "Mesoamérica"
+            },
+            {
+                question: "Qual foi uma das maiores inovações matemáticas dos maias?",
+                options: ["A invenção do pi", "O conceito do zero", "O cálculo integral", "O sistema binário"],
+                answer: "O conceito do zero"
+            },
+            {
+                question: "Qual era o nome da escrita maia?",
+                options: ["Hieróglifos", "Cuneiforme", "Glifos", "Alfabeto"],
+                answer: "Glifos"
+            },
+            {
+                question: "O que os maias usavam para fazer um calendário extremamente preciso?",
+                options: ["Astrologia", "Observações astronômicas", "Adivinhação", "Ciclos da natureza"],
+                answer: "Observações astronômicas"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const questionTextElement = document.getElementById('question-text');
+        const optionsContainerElement = document.getElementById('options-container');
+        const nextButton = document.getElementById('next-button');
+        const restartButton = document.getElementById('restart-button');
+        const resultElement = document.getElementById('result');
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            nextButton.style.display = 'none';
+            restartButton.style.display = 'none';
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                const currentQuestion = questions[currentQuestionIndex];
+                questionTextElement.textContent = `Pergunta ${currentQuestionIndex + 1}: ${currentQuestion.question}`;
+                optionsContainerElement.innerHTML = '';
+                resultElement.textContent = '';
+                currentQuestion.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.textContent = option;
+                    button.classList.add('option-button');
+                    button.addEventListener('click', () => checkAnswer(option, currentQuestion.answer));
+                    optionsContainerElement.appendChild(button);
+                });
+            } else {
+                showFinalScore();
+            }
+        }
+        
+        function checkAnswer(selectedOption, correctAnswer) {
+            const buttons = optionsContainerElement.querySelectorAll('.option-button');
+            buttons.forEach(button => {
+                if (button.textContent === correctAnswer) {
+                    button.classList.add('correct');
+                }
+                if (button.textContent === selectedOption && selectedOption !== correctAnswer) {
+                    button.classList.add('incorrect');
+                }
+                button.disabled = true;
+            });
+            
+            if (selectedOption === correctAnswer) {
+                score++;
+                resultElement.textContent = "Correto!";
+                resultElement.style.color = '#2ecc71';
+            } else {
+                resultElement.textContent = "Incorreto. A resposta correta é " + correctAnswer + ".";
+                resultElement.style.color = '#e74c3c';
+            }
+
+            nextButton.style.display = 'block';
+        }
+
+        function showFinalScore() {
+            questionTextElement.textContent = "Quiz Concluído!";
+            optionsContainerElement.innerHTML = '';
+            resultElement.textContent = `Sua pontuação final é: ${score} de ${questions.length}`;
+            resultElement.style.color = '#f1c40f';
+            restartButton.style.display = 'block';
+            nextButton.style.display = 'none';
+        }
+
+        nextButton.addEventListener('click', () => {
+            currentQuestionIndex++;
+            loadQuestion();
+        });
+
+        restartButton.addEventListener('click', () => {
+            startQuiz();
+        });
+
+        // Inicia o quiz ao carregar a página
+        startQuiz();
+    </script>
+</body>
+</html>
